@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
         unions = [reduce(lambda x, y: x.union(y), group_answers(line)) for line in lines]
         intersections = [
-            reduce(lambda x, y: 1 if y is None else x.intersection(y), group_answers(line)) for line in lines
+            reduce(lambda x, y: set(x) if y is None else x.intersection(y), group_answers(line)) for line in lines
         ]
 
         print("Task 1", sum([len(union) for union in unions]))
