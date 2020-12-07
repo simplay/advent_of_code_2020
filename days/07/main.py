@@ -1,6 +1,7 @@
+SHINY_GOLD = "shiny gold"
 if __name__ == "__main__":
-    def bag_color_count_with_at_least_one(bags: dict, bag_type: str, sum: int):
-        if bag_type == "shiny gold":
+    def bag_color_count_with_at_least_one(bags: dict, bag_type: str):
+        if bag_type == SHINY_GOLD:
             return 0
 
         rules = bags[bag_type]
@@ -11,8 +12,8 @@ if __name__ == "__main__":
         current_sum = 0
         for rule in rules:
             current_bag_type = rule["bag_type"]
-            current_sum += bag_color_count_with_at_least_one(bags, current_bag_type, 0) + (
-                1 if current_bag_type == "shiny gold" else 0)
+            current_sum += bag_color_count_with_at_least_one(bags, current_bag_type) + (
+                1 if current_bag_type == SHINY_GOLD else 0)
 
         return current_sum
 
@@ -46,11 +47,14 @@ if __name__ == "__main__":
                     continue
 
                 quantity, color_attribute, color_name, *rest = implication.strip().split(" ")
-                rule = {"quantity": int(quantity), "bag_type": f"{color_attribute.strip()} {color_name.strip()}"}
+                rule = {
+                    "quantity": int(quantity),
+                    "bag_type": f"{color_attribute.strip()} {color_name.strip()}"
+                }
                 rules.append(rule)
 
             bags[bag_type.strip()] = rules
 
-        counts = [bag_color_count_with_at_least_one(bags, _bag_type, 0) for _bag_type in bags]
+        counts = [bag_color_count_with_at_least_one(bags, _bag_type) for _bag_type in bags]
         print("Task 1", sum([count > 0 for count in counts]))
-        print("Task 2", number_of_bags_inside_bag(bags, "shiny gold"))
+        print("Task 2", number_of_bags_inside_bag(bags, SHINY_GOLD))
