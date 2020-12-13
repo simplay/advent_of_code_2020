@@ -86,17 +86,16 @@ def solve_task1(actions):
 def solve_task2(actions):
     waypoint = (10, 1)
     position = (0, 0)
-    direction = (1, 0)
 
     instructions_task = {
-        "N": lambda position, direction, waypoint, value: [position, direction, (waypoint[0], waypoint[1] + value)],
-        "S": lambda position, direction, waypoint, value: [position, direction, (waypoint[0], waypoint[1] - value)],
-        "E": lambda position, direction, waypoint, value: [position, direction, (waypoint[0] + value, waypoint[1])],
-        "W": lambda position, direction, waypoint, value: [position, direction, (waypoint[0] - value, waypoint[1])],
-        "L": lambda position, direction, waypoint, value: [position, direction, turn_left2(waypoint, position, value)],
-        "R": lambda position, direction, waypoint, value: [position, direction, turn_right2(waypoint, position, value)],
-        "F": lambda position, direction, waypoint, value: [
-            (position[0] + value * waypoint[0], position[1] + value * waypoint[1]), direction, waypoint]
+        "N": lambda position, waypoint, value: [position, (waypoint[0], waypoint[1] + value)],
+        "S": lambda position, waypoint, value: [position, (waypoint[0], waypoint[1] - value)],
+        "E": lambda position, waypoint, value: [position, (waypoint[0] + value, waypoint[1])],
+        "W": lambda position, waypoint, value: [position, (waypoint[0] - value, waypoint[1])],
+        "L": lambda position, waypoint, value: [position, turn_left2(waypoint, position, value)],
+        "R": lambda position, waypoint, value: [position, turn_right2(waypoint, position, value)],
+        "F": lambda position, waypoint, value: [
+            (position[0] + value * waypoint[0], position[1] + value * waypoint[1]), waypoint]
     }
 
     for (instruction, value) in actions:
